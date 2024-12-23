@@ -60,3 +60,16 @@ class StudentApiView(APIView):
             return Response(StudentSerializer(updated_student).data)
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+
+    def delete(self,request: Request,pk=None):
+        if not pk:
+            return Response("ochiirb bomidi",status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            student = Student.objects.get(pk=pk)
+            student.delete()
+            return Response({"message":"success"})
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
